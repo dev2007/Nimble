@@ -1,0 +1,11 @@
+D:\MySpace\Nimble\Test.Nimble.Contact\bin\Debug\Test.Nimble.Contact.dll
+D:\MySpace\Nimble\Test.Nimble.Contact\bin\Debug\Test.Nimble.Contact.pdb
+D:\MySpace\Nimble\Test.Nimble.Contact\obj\Debug\Test.Nimble.Contact.csprojResolveAssemblyReference.cache
+D:\MySpace\Nimble\Test.Nimble.Contact\obj\Debug\Test.Nimble.Contact.dll
+D:\MySpace\Nimble\Test.Nimble.Contact\obj\Debug\Test.Nimble.Contact.pdb
+D:\MySpace\Nimble\Test.Nimble.Contact\bin\Debug\Nimble.Contact.dll
+D:\MySpace\Nimble\Test.Nimble.Contact\bin\Debug\Nimble.Contact.pdb
+D:\MySpace\Nimble\Test.Nimble.Contact\bin\Debug\Nimble.Model.dll
+D:\MySpace\Nimble\Test.Nimble.Contact\bin\Debug\Newtonsoft.Json.dll
+D:\MySpace\Nimble\Test.Nimble.Contact\bin\Debug\Nimble.Model.pdb
+D:\MySpace\Nimble\Test.Nimble.Contact\bin\Debug\Newtonsoft.Json.xml

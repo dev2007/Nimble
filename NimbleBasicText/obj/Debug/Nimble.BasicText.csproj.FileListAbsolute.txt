@@ -1,0 +1,5 @@
+D:\MySpace\Nimble\NimbleBasicText\bin\Debug\NimbleBasicText.dll
+D:\MySpace\Nimble\NimbleBasicText\bin\Debug\NimbleBasicText.pdb
+D:\MySpace\Nimble\NimbleBasicText\obj\Debug\Nimble.BasicText.csprojResolveAssemblyReference.cache
+D:\MySpace\Nimble\NimbleBasicText\obj\Debug\NimbleBasicText.dll
+D:\MySpace\Nimble\NimbleBasicText\obj\Debug\NimbleBasicText.pdb

@@ -1,0 +1,5 @@
+D:\MySpace\Nimble\NimbleFrame\bin\Debug\NimbleFrame.dll
+D:\MySpace\Nimble\NimbleFrame\bin\Debug\NimbleFrame.pdb
+D:\MySpace\Nimble\NimbleFrame\obj\Debug\Nimble.Framework.csprojResolveAssemblyReference.cache
+D:\MySpace\Nimble\NimbleFrame\obj\Debug\NimbleFrame.dll
+D:\MySpace\Nimble\NimbleFrame\obj\Debug\NimbleFrame.pdb

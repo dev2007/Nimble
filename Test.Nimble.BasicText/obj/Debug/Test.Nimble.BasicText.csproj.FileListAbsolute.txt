@@ -1,0 +1,9 @@
+D:\MySpace\Nimble\Test.Nimble.BasicText\bin\Debug\Test.Nimble.BasicText.dll
+D:\MySpace\Nimble\Test.Nimble.BasicText\bin\Debug\Test.Nimble.BasicText.pdb
+D:\MySpace\Nimble\Test.Nimble.BasicText\bin\Debug\Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll
+D:\MySpace\Nimble\Test.Nimble.BasicText\bin\Debug\zh-Hans\Microsoft.VisualStudio.QualityTools.UnitTestFramework.resources.dll
+D:\MySpace\Nimble\Test.Nimble.BasicText\obj\Debug\Test.Nimble.BasicText.dll
+D:\MySpace\Nimble\Test.Nimble.BasicText\obj\Debug\Test.Nimble.BasicText.pdb
+D:\MySpace\Nimble\Test.Nimble.BasicText\bin\Debug\NimbleBasicText.dll
+D:\MySpace\Nimble\Test.Nimble.BasicText\bin\Debug\NimbleBasicText.pdb
+D:\MySpace\Nimble\Test.Nimble.BasicText\obj\Debug\Test.Nimble.BasicText.csprojResolveAssemblyReference.cache
