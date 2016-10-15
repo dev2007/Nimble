@@ -1,4 +1,6 @@
 ﻿using Nimble.Contact.Imp;
+using Nimble.Contact.Interfaces;
+using NimbleBasicText;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -25,10 +27,14 @@ namespace Nimble
     {
         private Timer timer = new Timer();
         private bool requestIsRunning = false;
-        private QCommunication contact = new QCommunication(new Contact.Message());
+        private Contact.Message message;
+        private IQCommunication contact;
         public MainWindow()
         {
             InitializeComponent();
+            message = new Contact.Message();
+            contact = new QCommunication(message);
+            message.BindInvoker(new Repeater());
             Stream s = contact.GetLoginQR();
             if (s != null)
             {
@@ -76,16 +82,6 @@ namespace Nimble
                     break;
             }
             requestIsRunning = false;
-        }
-
-        private void button_Click(object sender, RoutedEventArgs e)
-        {
-            contact.Poll();
-        }
-
-        private void button1_Click(object sender, RoutedEventArgs e)
-        {
-            contact.Message_Send(0, "929529331", "test");
         }
     }
 }

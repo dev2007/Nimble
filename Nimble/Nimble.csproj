@@ -104,6 +104,14 @@
       <Project>{92feb88c-8c08-4870-b427-23b31a5739ac}</Project>
       <Name>Nimble.Contact</Name>
     </ProjectReference>
+    <ProjectReference Include="..\NimbleBasicText\Nimble.BasicText.csproj">
+      <Project>{442fcd35-9c00-4e03-87ac-945d06a81e78}</Project>
+      <Name>Nimble.BasicText</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NimbleFrame\Nimble.Framework.csproj">
+      <Project>{6af199fd-b633-4d6a-9348-5b461af317a5}</Project>
+      <Name>Nimble.Framework</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

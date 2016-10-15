@@ -9,3 +9,5 @@ D:\MySpace\Nimble\Test.Nimble.Contact\bin\Debug\Nimble.Model.dll
 D:\MySpace\Nimble\Test.Nimble.Contact\bin\Debug\Newtonsoft.Json.dll
 D:\MySpace\Nimble\Test.Nimble.Contact\bin\Debug\Nimble.Model.pdb
 D:\MySpace\Nimble\Test.Nimble.Contact\bin\Debug\Newtonsoft.Json.xml
+D:\MySpace\Nimble\Test.Nimble.Contact\bin\Debug\NimbleFrame.dll
+D:\MySpace\Nimble\Test.Nimble.Contact\bin\Debug\NimbleFrame.pdb

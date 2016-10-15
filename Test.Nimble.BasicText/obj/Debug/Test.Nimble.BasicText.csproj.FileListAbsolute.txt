@@ -7,3 +7,5 @@ D:\MySpace\Nimble\Test.Nimble.BasicText\obj\Debug\Test.Nimble.BasicText.pdb
 D:\MySpace\Nimble\Test.Nimble.BasicText\bin\Debug\NimbleBasicText.dll
 D:\MySpace\Nimble\Test.Nimble.BasicText\bin\Debug\NimbleBasicText.pdb
 D:\MySpace\Nimble\Test.Nimble.BasicText\obj\Debug\Test.Nimble.BasicText.csprojResolveAssemblyReference.cache
+D:\MySpace\Nimble\Test.Nimble.BasicText\bin\Debug\NimbleFrame.dll
+D:\MySpace\Nimble\Test.Nimble.BasicText\bin\Debug\NimbleFrame.pdb

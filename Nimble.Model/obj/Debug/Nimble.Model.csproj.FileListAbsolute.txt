@@ -1,5 +1,0 @@
-D:\MySpace\Nimble\Nimble.Model\bin\Debug\Nimble.Model.dll
-D:\MySpace\Nimble\Nimble.Model\bin\Debug\Nimble.Model.pdb
-D:\MySpace\Nimble\Nimble.Model\obj\Debug\Nimble.Model.csprojResolveAssemblyReference.cache
-D:\MySpace\Nimble\Nimble.Model\obj\Debug\Nimble.Model.dll
-D:\MySpace\Nimble\Nimble.Model\obj\Debug\Nimble.Model.pdb

@@ -1,9 +1,0 @@
-D:\MySpace\Nimble\Nimble.Contact\bin\Debug\Nimble.Contact.dll
-D:\MySpace\Nimble\Nimble.Contact\bin\Debug\Nimble.Contact.pdb
-D:\MySpace\Nimble\Nimble.Contact\obj\Debug\Nimble.Contact.csprojResolveAssemblyReference.cache
-D:\MySpace\Nimble\Nimble.Contact\obj\Debug\Nimble.Contact.dll
-D:\MySpace\Nimble\Nimble.Contact\obj\Debug\Nimble.Contact.pdb
-D:\MySpace\Nimble\Nimble.Contact\bin\Debug\Nimble.Model.dll
-D:\MySpace\Nimble\Nimble.Contact\bin\Debug\Nimble.Model.pdb
-D:\MySpace\Nimble\Nimble.Contact\bin\Debug\Newtonsoft.Json.dll
-D:\MySpace\Nimble\Nimble.Contact\bin\Debug\Newtonsoft.Json.xml

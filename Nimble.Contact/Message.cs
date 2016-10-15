@@ -1,4 +1,5 @@
 ﻿using Nimble.Model.JsonModel;
+using NimbleFrame;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,23 +13,45 @@ namespace Nimble.Contact
         public bool Running = true;
         private int Count103 = 0;
 
+        private IDictionary<string, IQMessage> invokerDic;
         public Message()
         {
+            invokerDic = new Dictionary<string, IQMessage>();
+        }
 
+        public bool BindInvoker(IQMessage invoker)
+        {
+            if (invokerDic.ContainsKey(invoker.GUID))
+                return false;
+            invokerDic.Add(invoker.GUID, invoker);
+            return true;
+        }
+
+        public bool UnbindInvoker(IQMessage invoker)
+        {
+            if (invokerDic.ContainsKey(invoker.GUID))
+            {
+                invokerDic.Remove(invoker.GUID);
+                return true;
+            }
+            return false;
         }
 
         /// <summary>
         /// 私聊消息处理
         /// </summary>
         /// <param name="value">poll包中的value</param>
-        public void ProcessMsg(JsonPollMessage.paramResult.paramValue value,Action<int,string,string> action)
+        public void ProcessMsg(JsonPollMessage.paramResult.paramValue value, Action<int, string, string> action)
         {
             string message = Message_Process_GetMessageText(value.content);
-            //TODO：invoker 插件
-
             if (action != null)
             {
-                action(0, value.from_uin, message);
+                foreach (var invoker in invokerDic)
+                {
+                    var returnMsg = invoker.Value.Process(message);
+                    returnMsg += "【" + invoker.Value.AppName + "】";
+                    action((int)MessageType.MESSAGE, value.from_uin, returnMsg);
+                }
             }
         }
 
@@ -39,11 +62,13 @@ namespace Nimble.Contact
         public void GroupMessage(JsonPollMessage.paramResult.paramValue value, Action<int, string, string> action)
         {
             string message = Message_Process_GetMessageText(value.content);
-            //TODO：invoker 插件
-
             if (action != null)
             {
-                action(0, value.from_uin, message);
+                foreach (var invoker in invokerDic)
+                {
+                    var returnMsg = invoker.Value.Process(message);
+                    action((int)MessageType.GROUP, value.from_uin, returnMsg);
+                }
             }
         }
 
@@ -54,12 +79,16 @@ namespace Nimble.Contact
         public void DisscussMessage(JsonPollMessage.paramResult.paramValue value, Action<int, string, string> action)
         {
             string message = Message_Process_GetMessageText(value.content);
-            //TODO：invoker 插件
             if (action != null)
             {
-                action(0, value.from_uin, message);
+                foreach (var invoker in invokerDic)
+                {
+                    var returnMsg = invoker.Value.Process(message);
+                    action((int)MessageType.DISCUSS, value.from_uin, returnMsg);
+                }
             }
         }
+
 
         /// <summary>
         /// 处理poll包中的消息数组

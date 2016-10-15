@@ -41,6 +41,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repeater.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\NimbleFrame\Nimble.Framework.csproj">
+      <Project>{6af199fd-b633-4d6a-9348-5b461af317a5}</Project>
+      <Name>Nimble.Framework</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

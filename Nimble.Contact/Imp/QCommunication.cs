@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.IO;
 using Nimble.Contact.Utils;
@@ -9,11 +6,15 @@ using System.Web;
 using Nimble.Model;
 using Nimble.Model.JsonModel;
 using Newtonsoft.Json;
+using Nimble.Contact.Interfaces;
 
 namespace Nimble.Contact.Imp
 {
-    public class QCommunication
+    public class QCommunication : IQCommunication
     {
+        public bool ProcessMsg { get; set; }
+        public bool ProcessGroupMsg { get; set; }
+        public bool ProcessDiscussMsg { get; set; }
         public static string QQNum { get; private set; }
         public static Friend SelfInfo = new Friend();
 
@@ -26,6 +27,9 @@ namespace Nimble.Contact.Imp
         public QCommunication(Message msg)
         {
             this.message = msg;
+            ProcessMsg = true;
+            ProcessGroupMsg = true;
+            ProcessDiscussMsg = true;
         }
 
         /// <summary>
@@ -104,26 +108,30 @@ namespace Nimble.Contact.Imp
             GetDiscussList();
             GetSelfInfo();
             GetOnlineAndRecent();
+            Task.Run(() =>
+            {
+                Poll();
+            });
         }
 
         private void GetFriendList()
         {
             string url = UrlDefine.Friend_List;
             string sendData = string.Format("r={{\"vfwebqq\":\"{0}\",\"hash\":\"{1}\"}}", vfwebqq, hash);
-            string dat = Http.Post(url, sendData, UrlDefine.Friend_List_Refer);
+            string dat = Http.Post(url, sendData, UrlDefine.PT);
         }
 
         private void GetGroupList()
         {
             string url = UrlDefine.Group_List;
             string sendData = string.Format("r={{\"vfwebqq\":\"{0}\",\"hash\":\"{1}\"}}", vfwebqq, hash);
-            string dat = Http.Post(url, sendData, UrlDefine.Group_List_Refer);
+            string dat = Http.Post(url, sendData, UrlDefine.Pession_Refer);
         }
 
         private void GetDiscussList()
         {
             string url = UrlDefine.Discuss_List.Replace("#{psessionid}", psessionid).Replace("#{vfwebqq}", vfwebqq).Replace("#{t}", Utility.AID_TimeStamp());
-            string dat = Http.Get(url, UrlDefine.Discuss_List_Refer);
+            string dat = Http.Get(url, UrlDefine.Pession_Refer);
         }
 
         /// <summary>
@@ -132,7 +140,7 @@ namespace Nimble.Contact.Imp
         private void GetSelfInfo()
         {
             string url = UrlDefine.Self_Info.Replace("#{t}", Utility.AID_TimeStamp());
-            string dat = Http.Get(url, UrlDefine.Self_Info_Refer);
+            string dat = Http.Get(url, UrlDefine.PT);
             JsonFriend inf = (JsonFriend)JsonConvert.DeserializeObject(dat, typeof(JsonFriend));
 
             SelfInfo.face = inf.result.face;
@@ -173,7 +181,7 @@ namespace Nimble.Contact.Imp
         /// <summary>
         /// 拉取消息
         /// </summary>
-        public bool Poll()
+        private bool Poll()
         {
             if (!message.Running)
                 return false;
@@ -214,13 +222,16 @@ namespace Nimble.Contact.Imp
                             message.Running = false;
                             break;
                         case "message":
-                            message.ProcessMsg(poll.result[i].value, SendMsgAction);
+                            if (ProcessMsg)
+                                message.ProcessMsg(poll.result[i].value, SendMsgAction);
                             break;
                         case "group_message":
-                            message.GroupMessage(poll.result[i].value, SendMsgAction);
+                            if (ProcessGroupMsg)
+                                message.GroupMessage(poll.result[i].value, SendMsgAction);
                             break;
                         case "discu_message":
-                            message.DisscussMessage(poll.result[i].value, SendMsgAction);
+                            if (ProcessDiscussMsg)
+                                message.DisscussMessage(poll.result[i].value, SendMsgAction);
                             break;
                         default:
                             //poll.result[i].poll_type;
@@ -231,9 +242,9 @@ namespace Nimble.Contact.Imp
 
         private void SendMsgAction(int type, string uid, string sendMsg)
         {
-            if(!Message_Send(type, uid, sendMsg))
+            if (!SendMessage(type, uid, sendMsg))
             {
-                Message_Send(type, uid, sendMsg);
+                //TODO：LOG
             }
         }
 
@@ -245,7 +256,7 @@ namespace Nimble.Contact.Imp
         /// <param name="id">用户：uid；群：qid；讨论组：did</param>
         /// <param name="messageToSend">要发送的消息</param>
         /// <returns></returns>
-        public bool Message_Send(int type, string id, string messageToSend)
+        private bool SendMessage(int type, string id, string messageToSend)
         {
             if (messageToSend.Equals("") || id.Equals(""))
                 return false;
@@ -282,7 +293,7 @@ namespace Nimble.Contact.Imp
                 string postData = "{\"#{type}\":#{id},\"content\":\"[#{msg},[\\\"font\\\",{\\\"name\\\":\\\"宋体\\\",\\\"size\\\":10,\\\"style\\\":[0,0,0],\\\"color\\\":\\\"000000\\\"}]]\",\"face\":#{face},\"clientid\":53999199,\"msg_id\":#{msg_id},\"psessionid\":\"#{psessionid}\"}";
                 postData = "r=" + HttpUtility.UrlEncode(postData.Replace("#{type}", to_groupuin_did).Replace("#{id}", id).Replace("#{msg}", messageToSend).Replace("#{face}", SelfInfo.face.ToString()).Replace("#{msg_id}", rand.Next(10000000, 99999999).ToString()).Replace("#{psessionid}", psessionid));
 
-                string dat = Http.Post(url, postData, "http://d1.web2.qq.com/proxy.html?v=20151105001&callback=1&id=2");
+                string dat = Http.Post(url, postData, UrlDefine.Pession_Refer);
                 return dat.Equals("{\"errCode\":0,\"msg\":\"send ok\"}");
             }
             catch (Exception)
@@ -301,7 +312,7 @@ namespace Nimble.Contact.Imp
         private void GetVfWebQQ()
         {
             string url = UrlDefine.VF.Replace("#{ptwebqq}", ptwebqq).Replace("#{t}", Utility.AID_TimeStamp());
-            string dat = Http.Get(url, UrlDefine.VF_Refer);
+            string dat = Http.Get(url, UrlDefine.PT);
             vfwebqq = dat.Split('\"')[7];
         }
 
@@ -309,20 +320,22 @@ namespace Nimble.Contact.Imp
         {
             string url1 = UrlDefine.PerssionData_Format.Replace("#{ptwebqq}", ptwebqq);
             url1 = "r=" + HttpUtility.UrlEncode(url1);
-            string dat = Http.Post(UrlDefine.Pession, url1, UrlDefine.Pession_Refer);
-            psessionid = dat.Replace(":", ",").Replace("{", "").Replace("}", "").Replace("\"", "").Split(',')[10];
-            QQNum = uin = dat.Replace(":", ",").Replace("{", "").Replace("}", "").Replace("\"", "").Split(',')[14];
+            string data = Http.Post(UrlDefine.Pession, url1, UrlDefine.Pession_Refer);
+            //if (!string.IsNullOrEmpty(data))
+            //    GetPSessionId();
+            psessionid = data.Replace(":", ",").Replace("{", "").Replace("}", "").Replace("\"", "").Split(',')[10];
+            QQNum = uin = data.Replace(":", ",").Replace("{", "").Replace("}", "").Replace("\"", "").Split(',')[14];
             hash = AID_Hash(QQNum, ptwebqq);
         }
 
         private static void GetOnlineAndRecent()
         {
-            string url = "http://d1.web2.qq.com/channel/get_online_buddies2?vfwebqq=#{vfwebqq}&clientid=53999199&psessionid=#{psessionid}&t=#{t}".Replace("#{vfwebqq}", vfwebqq).Replace("#{psessionid}", psessionid).Replace("#{t}", Utility.AID_TimeStamp());
-            Http.Get(url, "http://d1.web2.qq.com/proxy.html?v=20151105001&callback=1&id=2");
+            string url = UrlDefine.Online_Recent.Replace("#{vfwebqq}", vfwebqq).Replace("#{psessionid}", psessionid).Replace("#{t}", Utility.AID_TimeStamp());
+            Http.Get(url, UrlDefine.Pession_Refer);
 
-            url = "http://d1.web2.qq.com/channel/get_recent_list2";
+            url = UrlDefine.Recent_List;
             string url1 = "{\"vfwebqq\":\"#{vfwebqq}\",\"clientid\":53999199,\"psessionid\":\"#{psessionid}\"}".Replace("#{vfwebqq}", vfwebqq).Replace("#{psessionid}", psessionid);
-            string dat = Http.Post(url, "r=" + HttpUtility.UrlEncode(url1), "http://d1.web2.qq.com/proxy.html?v=20151105001&callback=1&id=2");
+            string dat = Http.Post(url, "r=" + HttpUtility.UrlEncode(url1), UrlDefine.Pession_Refer);
         }
 
         /// <summary>
