@@ -1,5 +1,6 @@
 ﻿using Nimble.Contact.Imp;
 using Nimble.Contact.Interfaces;
+using Nimble.Module;
 using NimbleBasicText;
 using System;
 using System.Collections.Generic;
@@ -27,14 +28,13 @@ namespace Nimble
     {
         private Timer timer = new Timer();
         private bool requestIsRunning = false;
-        private Contact.Message message;
+
         private IQCommunication contact;
         public MainWindow()
         {
             InitializeComponent();
-            message = new Contact.Message();
-            contact = new QCommunication(message);
-            message.BindInvoker(new Repeater());
+            Plugin.LoadDll();
+            contact = new QCommunication(Plugin.MessageManager);
             Stream s = contact.GetLoginQR();
             if (s != null)
             {
@@ -63,25 +63,44 @@ namespace Nimble
             switch (status)
             {
                 case Contact.QRStatus.INVALID:
-                    Stream s = contact.RefreshQR();
-                    if (s != null)
+                    Dispatcher.Invoke(() =>
                     {
-                        BitmapImage myBitmapImage = new BitmapImage();
-                        myBitmapImage.BeginInit();
-                        myBitmapImage.StreamSource = s;
-                        myBitmapImage.EndInit();
-                        this.image.Source = myBitmapImage;
-                    }
-
+                        RefreshQR();
+                    });
                     break;
                 case Contact.QRStatus.CONFIRMED:
                     timer.Stop();
-                    MessageBox.Show("登录成功");
+                    Dispatcher.Invoke(() =>
+                    {
+                        this.Hide();
+                        RunWindow runWindow = new RunWindow();
+                        runWindow.ShowDialog();
+                    });
+                    break;
+                case Contact.QRStatus.CONFIRMFAIL:
+                    Dispatcher.Invoke(() =>
+                    {
+                        MessageBox.Show("登录异常，请重新扫描登录");
+                        RefreshQR();
+                    });
                     break;
                 default:
                     break;
             }
             requestIsRunning = false;
+        }
+
+        private void RefreshQR()
+        {
+            Stream s = contact.RefreshQR();
+            if (s != null)
+            {
+                BitmapImage myBitmapImage = new BitmapImage();
+                myBitmapImage.BeginInit();
+                myBitmapImage.StreamSource = s;
+                myBitmapImage.EndInit();
+                this.image.Source = myBitmapImage;
+            }
         }
     }
 }

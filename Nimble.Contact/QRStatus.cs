@@ -30,6 +30,10 @@ namespace Nimble.Contact
         /// <summary>
         /// 已确认
         /// </summary>
-        CONFIRMED
+        CONFIRMED,
+        /// <summary>
+        /// 确认失败
+        /// </summary>
+        CONFIRMFAIL
     }
 }

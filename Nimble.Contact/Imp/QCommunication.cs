@@ -12,10 +12,25 @@ namespace Nimble.Contact.Imp
 {
     public class QCommunication : IQCommunication
     {
+        /// <summary>
+        /// 是否处理聊天消息
+        /// </summary>
         public bool ProcessMsg { get; set; }
+        /// <summary>
+        /// 是否处理群消息
+        /// </summary>
         public bool ProcessGroupMsg { get; set; }
+        /// <summary>
+        /// 是否处理讨论组消息
+        /// </summary>
         public bool ProcessDiscussMsg { get; set; }
+        /// <summary>
+        /// 用户QQ号
+        /// </summary>
         public static string QQNum { get; private set; }
+        /// <summary>
+        /// 用户个人信息
+        /// </summary>
         public static Friend SelfInfo = new Friend();
 
         private Random rand = new Random();
@@ -71,7 +86,10 @@ namespace Nimble.Contact.Imp
                 case ("67")://等待确认
                     return QRStatus.CONFIRMING;
                 case ("0")://已经确认
-                    LoginSuccess(status[5]);
+                    var loginFlag = LoginSuccess(status[5]);
+                    if (!loginFlag)
+                        return QRStatus.CONFIRMFAIL;
+
                     if (loginSuccessAction != null)
                     {
                         loginSuccessAction();
@@ -98,11 +116,21 @@ namespace Nimble.Contact.Imp
         /// 登录成功的操作
         /// </summary>
         /// <param name="url"></param>
-        private void LoginSuccess(string url)
+        private bool LoginSuccess(string url)
         {
-            GetPTWebQQ(url);
-            GetVfWebQQ();
-            GetPSessionId();
+            var result = true;
+            result = GetPTWebQQ(url);
+            if (!result)
+                return result;
+
+            result = GetVfWebQQ();
+            if (!result)
+                return result;
+
+            result = GetPSessionId();
+            if (!result)
+                return result;
+
             GetFriendList();
             GetGroupList();
             GetDiscussList();
@@ -112,6 +140,7 @@ namespace Nimble.Contact.Imp
             {
                 Poll();
             });
+            return result;
         }
 
         private void GetFriendList()
@@ -302,30 +331,33 @@ namespace Nimble.Contact.Imp
             }
         }
 
-        private void GetPTWebQQ(string url)
+        private bool GetPTWebQQ(string url)
         {
             string dat = Http.Get(url, UrlDefine.PT);
             Uri uri = new Uri(UrlDefine.Host);
             ptwebqq = Http.Cookies.GetCookies(uri)["ptwebqq"].Value;
+            return !string.IsNullOrEmpty(ptwebqq);
         }
 
-        private void GetVfWebQQ()
+        private bool GetVfWebQQ()
         {
             string url = UrlDefine.VF.Replace("#{ptwebqq}", ptwebqq).Replace("#{t}", Utility.AID_TimeStamp());
             string dat = Http.Get(url, UrlDefine.PT);
             vfwebqq = dat.Split('\"')[7];
+            return !string.IsNullOrEmpty(vfwebqq);
         }
 
-        private void GetPSessionId()
+        private bool GetPSessionId()
         {
             string url1 = UrlDefine.PerssionData_Format.Replace("#{ptwebqq}", ptwebqq);
             url1 = "r=" + HttpUtility.UrlEncode(url1);
             string data = Http.Post(UrlDefine.Pession, url1, UrlDefine.Pession_Refer);
-            //if (!string.IsNullOrEmpty(data))
-            //    GetPSessionId();
+            if (string.IsNullOrEmpty(data))
+                return false;
             psessionid = data.Replace(":", ",").Replace("{", "").Replace("}", "").Replace("\"", "").Split(',')[10];
             QQNum = uin = data.Replace(":", ",").Replace("{", "").Replace("}", "").Replace("\"", "").Split(',')[14];
             hash = AID_Hash(QQNum, ptwebqq);
+            return true;
         }
 
         private static void GetOnlineAndRecent()

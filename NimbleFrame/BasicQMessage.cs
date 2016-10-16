@@ -16,7 +16,7 @@ namespace NimbleFrame
 
         public string Version { get; protected set; }
 
-        public bool ShowTag { get; protected set; }
+        public bool ShowTail { get; protected set; }
 
         public BasicQMessage()
         {
@@ -24,7 +24,7 @@ namespace NimbleFrame
             GUID = "{AA6743D3-A749-4578-94AE-BEAD04E9FEAC}";
             Priority = Priority.MEDIUM;
             Version = "1.0";
-            ShowTag = true;
+            ShowTail = true;
         }
 
         public abstract string Process(string message);

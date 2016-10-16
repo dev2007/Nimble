@@ -37,6 +37,12 @@ namespace Nimble.Contact
             return false;
         }
 
+        public bool RemoveAllInvoker()
+        {
+            invokerDic.Clear();
+            return true;
+        }
+
         /// <summary>
         /// 私聊消息处理
         /// </summary>
@@ -48,9 +54,7 @@ namespace Nimble.Contact
             {
                 foreach (var invoker in invokerDic)
                 {
-                    var returnMsg = invoker.Value.Process(message);
-                    returnMsg += "【" + invoker.Value.AppName + "】";
-                    action((int)MessageType.MESSAGE, value.from_uin, returnMsg);
+                    action((int)MessageType.MESSAGE, value.from_uin, ProcessMsg(message, invoker.Value));
                 }
             }
         }
@@ -66,8 +70,7 @@ namespace Nimble.Contact
             {
                 foreach (var invoker in invokerDic)
                 {
-                    var returnMsg = invoker.Value.Process(message);
-                    action((int)MessageType.GROUP, value.from_uin, returnMsg);
+                    action((int)MessageType.GROUP, value.from_uin, ProcessMsg(message, invoker.Value));
                 }
             }
         }
@@ -83,10 +86,19 @@ namespace Nimble.Contact
             {
                 foreach (var invoker in invokerDic)
                 {
-                    var returnMsg = invoker.Value.Process(message);
-                    action((int)MessageType.DISCUSS, value.from_uin, returnMsg);
+                    action((int)MessageType.DISCUSS, value.from_uin, ProcessMsg(message, invoker.Value));
                 }
             }
+        }
+
+        private string ProcessMsg(string message, IQMessage invoker)
+        {
+            var returnMsg = invoker.Process(message);
+            if (invoker.ShowTail)
+            {
+                returnMsg += string.Format("【{0}】", invoker.AppName);
+            }
+            return returnMsg;
         }
 
 

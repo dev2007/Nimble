@@ -15,7 +15,7 @@ namespace NimbleBasicText
             AppName = "复读机";
             Priority = Priority.MEDIUM;
             Version = "1.0";
-            ShowTag = true;
+            ShowTail = true;
         }
 
         public override string Process(string message)

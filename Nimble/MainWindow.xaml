@@ -5,11 +5,16 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Nimble"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
+        Title="Nibmle QQ 机器人" Height="340" Width="300" ResizeMode="CanMinimize">
     <Grid>
-        <Image x:Name="image" HorizontalAlignment="Left" Height="205" Margin="56,44,0,0" VerticalAlignment="Top" Width="201"/>
-        <Button x:Name="button" Content="Button" HorizontalAlignment="Left" Margin="373,44,0,0" VerticalAlignment="Top" Width="75"/>
-        <Button x:Name="button1" Content="Send" HorizontalAlignment="Left" Margin="373,95,0,0" VerticalAlignment="Top" Width="75"/>
-
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="40"/>
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Row="0" Text="QQ安全登录" HorizontalAlignment="Center"  Padding="0,10,0,0" FontWeight="Bold" FontSize="12"/>
+        <Image Grid.Row="1" x:Name="image" HorizontalAlignment="Center" Height="200" Width="200" VerticalAlignment="Center"/>
+        <Image Grid.Row="1" x:Name="logo" HorizontalAlignment="Center" VerticalAlignment="Center" Source="img/qq.png" Height="80" Width="80"/>
+        <TextBlock Grid.Row="2" Text="请使用手机QQ扫描二维码确认登录" HorizontalAlignment="Center"  Padding="0,10,0,0"/>
     </Grid>
 </Window>
