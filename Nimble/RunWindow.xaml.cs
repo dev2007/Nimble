@@ -22,10 +22,17 @@ namespace Nimble
     /// </summary>
     public partial class RunWindow : Window
     {
+        private static MainWindow mainWindow;
+         
         public RunWindow()
         {
             InitializeComponent();
             Plugin.EnableAllInvoker();
+        }
+
+        public static void BindMainWindow(MainWindow instance)
+        {
+            mainWindow = instance;
         }
 
         private void button_Click(object sender, RoutedEventArgs e)
@@ -58,6 +65,11 @@ namespace Nimble
                 if (file != null)
                     file.Close();
             }
+        }
+
+        private void saveBtn_Click(object sender, RoutedEventArgs e)
+        {
+            mainWindow.Setting();
         }
     }
 }

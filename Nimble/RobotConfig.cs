@@ -8,21 +8,10 @@ namespace Nimble
 {
     public class RobotConfig
     {
+        private static string keyword = "@机器人";
         /// <summary>
-        /// 响应消息的前缀
+        /// 响应消息的关键字
         /// </summary>
-        public static string ResponseKeyword { get; set; }
-        /// <summary>
-        /// 消息是否响应
-        /// </summary>
-        /// <param name="message"></param>
-        /// <returns></returns>
-        public static bool IsResponse(string message)
-        {
-            if (string.IsNullOrEmpty(ResponseKeyword))
-                return true;
-
-            return message.Contains(ResponseKeyword);
-        }
+        public static string ResponseKeyword { get { return keyword; } set { if (!string.IsNullOrEmpty(keyword)) keyword = value; } }
     }
 }

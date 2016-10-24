@@ -14,6 +14,7 @@ namespace Nimble.Contact
         private int Count103 = 0;
 
         private IDictionary<string, IQMessage> invokerDic;
+        private string keyword = string.Empty;
         public Message()
         {
             invokerDic = new Dictionary<string, IQMessage>();
@@ -37,6 +38,11 @@ namespace Nimble.Contact
             return false;
         }
 
+        public void SetResponseKeyword(string keyword)
+        {
+            this.keyword = keyword;
+        }
+
         public bool RemoveAllInvoker()
         {
             invokerDic.Clear();
@@ -50,7 +56,8 @@ namespace Nimble.Contact
         public void ProcessMsg(JsonPollMessage.paramResult.paramValue value, Action<int, string, string> action)
         {
             string message = Message_Process_GetMessageText(value.content);
-            if (action != null)
+            var responseFlag = message.Contains(keyword);
+            if (action != null && responseFlag)
             {
                 foreach (var invoker in invokerDic)
                 {
@@ -66,7 +73,7 @@ namespace Nimble.Contact
         public void GroupMessage(JsonPollMessage.paramResult.paramValue value, Action<int, string, string> action)
         {
             string message = Message_Process_GetMessageText(value.content);
-            var responseFlag = message.Contains("#机器人") || message.Contains("@机器人");
+            var responseFlag = message.Contains(keyword);
             if (action != null && responseFlag)
             {
                 foreach (var invoker in invokerDic)
@@ -83,7 +90,7 @@ namespace Nimble.Contact
         public void DisscussMessage(JsonPollMessage.paramResult.paramValue value, Action<int, string, string> action)
         {
             string message = Message_Process_GetMessageText(value.content);
-            var responseFlag = message.Contains("#机器人") || message.Contains("@机器人");
+            var responseFlag = message.Contains(keyword);
             if (action != null && responseFlag)
             {
                 foreach (var invoker in invokerDic)

@@ -53,6 +53,14 @@ namespace Nimble
             requestIsRunning = false;
         }
 
+        /// <summary>
+        /// 绑定新的设置
+        /// </summary>
+        public void Setting()
+        {
+            Plugin.MessageManager.SetResponseKeyword(RobotConfig.ResponseKeyword);
+        }
+
         private void Timer_Elapsed(object sender, ElapsedEventArgs e)
         {
             if (requestIsRunning)
@@ -75,6 +83,7 @@ namespace Nimble
                     {
                         this.Hide();
                         runWindow.ShowDialog();
+                        RunWindow.BindMainWindow(this);
                     });
                     break;
                 case Contact.QRStatus.CONFIRMFAIL:
