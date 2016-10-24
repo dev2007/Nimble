@@ -21,6 +21,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test.Nimble.BasicText", "Te
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nimble.Model", "Nimble.Model\Nimble.Model.csproj", "{A879F74A-4BE7-413E-A046-3632C62B7B44}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nimble.Turing", "Nimble.Turing\Nimble.Turing.csproj", "{0EE9BF20-D725-4880-A8BF-746D2F1616C2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test.Nimble.Turing", "Test.Nimble.Turing\Test.Nimble.Turing.csproj", "{8D648B89-F3B8-45C7-8794-668445944BCE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -59,6 +63,14 @@ Global
 		{A879F74A-4BE7-413E-A046-3632C62B7B44}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A879F74A-4BE7-413E-A046-3632C62B7B44}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A879F74A-4BE7-413E-A046-3632C62B7B44}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0EE9BF20-D725-4880-A8BF-746D2F1616C2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0EE9BF20-D725-4880-A8BF-746D2F1616C2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0EE9BF20-D725-4880-A8BF-746D2F1616C2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0EE9BF20-D725-4880-A8BF-746D2F1616C2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8D648B89-F3B8-45C7-8794-668445944BCE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8D648B89-F3B8-45C7-8794-668445944BCE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8D648B89-F3B8-45C7-8794-668445944BCE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8D648B89-F3B8-45C7-8794-668445944BCE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -67,5 +79,6 @@ Global
 		{E2A3C3BB-8628-4D1C-A7D5-AC7B4CEF3B30} = {8D355932-505D-4B62-A0B4-8A8EF03E559C}
 		{41BF040A-916E-4892-9449-6585B49BD992} = {8D355932-505D-4B62-A0B4-8A8EF03E559C}
 		{07B64FAF-CC8F-4872-9BC9-2F6EAB1D8BA9} = {8D355932-505D-4B62-A0B4-8A8EF03E559C}
+		{8D648B89-F3B8-45C7-8794-668445944BCE} = {8D355932-505D-4B62-A0B4-8A8EF03E559C}
 	EndGlobalSection
 EndGlobal

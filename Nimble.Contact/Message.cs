@@ -66,7 +66,8 @@ namespace Nimble.Contact
         public void GroupMessage(JsonPollMessage.paramResult.paramValue value, Action<int, string, string> action)
         {
             string message = Message_Process_GetMessageText(value.content);
-            if (action != null)
+            var responseFlag = message.Contains("#机器人") || message.Contains("@机器人");
+            if (action != null && responseFlag)
             {
                 foreach (var invoker in invokerDic)
                 {
@@ -82,7 +83,8 @@ namespace Nimble.Contact
         public void DisscussMessage(JsonPollMessage.paramResult.paramValue value, Action<int, string, string> action)
         {
             string message = Message_Process_GetMessageText(value.content);
-            if (action != null)
+            var responseFlag = message.Contains("#机器人") || message.Contains("@机器人");
+            if (action != null && responseFlag)
             {
                 foreach (var invoker in invokerDic)
                 {

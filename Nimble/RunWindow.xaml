@@ -5,9 +5,22 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Nimble"
         mc:Ignorable="d"
-        Title="RunWindow" Height="300" Width="300">
+        Title="Nimble QQ 机器人" Height="300" Width="300">
     <Grid>
-        <Button x:Name="button" Content="Button" HorizontalAlignment="Left" Margin="209,55,0,0" VerticalAlignment="Top" Width="75" Click="button_Click"/>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20"/>
+            <RowDefinition Height="20"/>
+            <RowDefinition Height="20"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="50*"/>
+            <ColumnDefinition Width="50*"/>
+        </Grid.ColumnDefinitions>
+        <RadioButton Content="全部响应" Grid.Row="1"/>
+        <RadioButton Content="仅响应命令" Grid.Row="1"/>
+        <TextBlock Grid.Row="0" Grid.ColumnSpan="2" Text="机器人已启动" VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="Bold"/>
+        <Button x:Name="button" Grid.Row="3" Content="配置插件" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Click="button_Click"/>
 
     </Grid>
 </Window>

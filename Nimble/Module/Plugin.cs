@@ -116,7 +116,7 @@ namespace Nimble.Module
             IList<string> data = null;
             try
             {
-                sr = new StreamReader(Define.ConfigPath, Encoding.Default);
+                sr = new StreamReader(Define.ModuleConfigPath, Encoding.Default);
                 string line;
                 string content = string.Empty;
                 while ((line = sr.ReadLine()) != null)

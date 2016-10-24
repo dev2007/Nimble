@@ -30,6 +30,7 @@ namespace Nimble
         private bool requestIsRunning = false;
 
         private IQCommunication contact;
+        private RunWindow runWindow = new RunWindow();
         public MainWindow()
         {
             InitializeComponent();
@@ -73,7 +74,6 @@ namespace Nimble
                     Dispatcher.Invoke(() =>
                     {
                         this.Hide();
-                        RunWindow runWindow = new RunWindow();
                         runWindow.ShowDialog();
                     });
                     break;

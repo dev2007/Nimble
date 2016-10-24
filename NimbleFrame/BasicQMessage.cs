@@ -16,6 +16,8 @@ namespace NimbleFrame
 
         public string Version { get; protected set; }
 
+        public string Author { get; protected set; }
+
         public bool ShowTail { get; protected set; }
 
         public BasicQMessage()
@@ -24,6 +26,7 @@ namespace NimbleFrame
             GUID = "{AA6743D3-A749-4578-94AE-BEAD04E9FEAC}";
             Priority = Priority.MEDIUM;
             Version = "1.0";
+            Author = "默认作者";
             ShowTail = true;
         }
 

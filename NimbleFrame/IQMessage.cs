@@ -23,6 +23,10 @@
         /// </summary>
         string Version { get; }
         /// <summary>
+        /// 作者
+        /// </summary>
+        string Author { get;}
+        /// <summary>
         /// 消息处理
         /// </summary>
         /// <param name="message"></param>

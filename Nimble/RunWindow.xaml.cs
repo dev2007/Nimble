@@ -1,6 +1,8 @@
-﻿using Nimble.Module;
+﻿using Newtonsoft.Json;
+using Nimble.Module;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -30,6 +32,32 @@ namespace Nimble
         {
             ConfigWindow configWindow = new ConfigWindow();
             configWindow.ShowDialog();
+        }
+
+        private void WriteFile(RobotConfig config)
+        {
+            string json = JsonConvert.SerializeObject(config);
+
+            FileStream file = null;
+            StreamWriter sw = null;
+            try
+            {
+                file = new FileStream(Define.SettingConfigPath, FileMode.Create);
+                sw = new StreamWriter(file);
+                sw.Write(json);
+                sw.Flush();
+            }
+            catch (Exception e)
+            {
+
+            }
+            finally
+            {
+                if (sw != null)
+                    sw.Close();
+                if (file != null)
+                    file.Close();
+            }
         }
     }
 }

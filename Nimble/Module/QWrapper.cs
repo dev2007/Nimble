@@ -70,6 +70,14 @@ namespace Nimble.Module
             }
         }
 
+        public string Author
+        {
+            get
+            {
+                return (string)assemblyModule.GetProperty("Author").GetValue(classInstance);
+            }
+        }
+
         public string Process(string message)
         {
             Type[] params_type = new Type[1];

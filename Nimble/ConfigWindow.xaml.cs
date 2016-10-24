@@ -64,7 +64,7 @@ namespace Nimble
             StreamWriter sw = null;
             try
             {
-                file = new FileStream(Define.ConfigPath, FileMode.Create);
+                file = new FileStream(Define.ModuleConfigPath, FileMode.Create);
                 sw = new StreamWriter(file);
                 sw.Write(json);
                 sw.Flush();
